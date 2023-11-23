@@ -2,6 +2,7 @@ package com.game.entity;
 
 import java.util.Date;
 import jakarta.persistence.*;
+import org.hibernate.annotations.Type;
 
 @NamedQuery(name = "Player_FindAllPlayers",
         query = "SELECT COUNT(player) FROM Player player")
@@ -9,12 +10,16 @@ import jakarta.persistence.*;
 @Table(schema = "rpg", name = "player")
 public class Player {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "player_seq")
-    @SequenceGenerator(name = "player_seq", sequenceName = "player_sequence", initialValue = 41, allocationSize=1)
+
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // будет генерить id на основании таблицы
+    //@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "player_seq")
+    // задает свою собственную генерацию id на основании @SequenceGenerator
+    //@SequenceGenerator(name = "player_seq", sequenceName = "player_sequence", initialValue = 41, allocationSize=1)
     @Column(nullable = false)
     private Long id;
 
     @Column(nullable = false, length = 12)
+    @Type(type = "")
     private String name;
 
     @Column(nullable = false, length = 30)
